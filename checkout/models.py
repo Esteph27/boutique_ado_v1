@@ -8,6 +8,8 @@ from products.models import Product
 
 
 class Order(models.Model):
+    """ Order model for order information """
+
     order_number = models.CharField(max_length=32, null=False, editable=False)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
@@ -56,6 +58,8 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
+    """ Order line item model """
+
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
     product_size = models.CharField(max_length=2, null=True, blank=True) # XS, S, M, L, XL
@@ -72,3 +76,4 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
+
